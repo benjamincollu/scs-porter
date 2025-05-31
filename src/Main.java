@@ -8,6 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * SCS Porter - A command-line tool to port .scs mod files to another version of Euro Truck Simulator 2
+ * Usage:
+ * java -jar scs-porter.jar <file> <version to port to>
+ * Example:
+ * java -jar scs-porter.jar mod.scs 1.54
+ *
+ * @author Benjamín Collu
+ * @version 1.6.2025
+ */
 public class Main {
     public static void main(String[] args) {
         // argument check
@@ -33,6 +43,7 @@ public class Main {
         System.out.println("Sucessfully ported " + fileName + " to version " + to + ".*");
     }
     public static void helpDialog() {
+        // help dialog
         System.out.println("scs-porter - A command-line tool to port .scs mod files to another version of Euro Truck Simulator 2");
         System.out.println("valid syntax:");
         System.out.println("    scs-porter.jar <file> <version to port to>");
@@ -43,15 +54,18 @@ public class Main {
     private static void changeVersion(Path source, String to) throws IOException {
         URI uri = URI.create("jar:" + source.toUri());
         try (FileSystem fileSystem = FileSystems.newFileSystem(uri, Map.of("create", "false"))) {
+            // link to the manifest file inside the .scs archive
             Path manifest = fileSystem.getPath("/manifest.sii");
 
             boolean found = false;
 
+            // read the manifest file
             List<String> oldFile = Files.readAllLines(manifest);
             ArrayList<String> newFile = new ArrayList<>();
 
             int lineNumber = 0;
 
+            // iterate through the lines of the manifest file until we find the compatible_versions line
             for (String line : oldFile) {
                 newFile.add(line);
                 if (!found && line.trim().startsWith("compatible_versions")) {
@@ -69,6 +83,7 @@ public class Main {
                 System.exit(2);
             }
 
+            // write the modified manifest file back to the .scs archive
             Files.write(manifest, newFile);
             System.out.println("Successfully set compatible_versions to " + to + ".*");
         }
