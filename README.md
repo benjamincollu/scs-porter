@@ -16,3 +16,11 @@ java -jar scs-porter.jar mod.scs 1.54
 ## Release
 
 Can be downloaded from the [releases page](https://github.com/benjamincollu/scs-porter/releases), run using java -jar command as shown in the usage section.
+
+## Issues
+
+scs-porter depends on the zip-like structure of the .scs file format, however some mods may implement custom compression methods or use extra headers that render the method this tool uses ineffective.
+
+## Disclaimer
+
+This tool is not affiliated with SCS Software or any other company. It is a community project to help modders port their mods to newer versions of the game. Use at your own risk, and always back up your files before using this tool.
