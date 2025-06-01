@@ -19,7 +19,7 @@ Can be downloaded from the [releases page](https://github.com/benjamincollu/scs-
 
 ## Issues
 
-scs-porter depends on the zip-like structure of the .scs file format, however some mods may implement HashFS which renders the method this tool uses ineffective.
+scs-porter depends on the zip-like structure of the .scs file format, however some mods may implement HashFSv2 which renders the method this tool uses ineffective.
 
 ## Disclaimer
 
